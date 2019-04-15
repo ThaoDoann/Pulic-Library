@@ -1,0 +1,239 @@
+/**
+ * 
+ */
+package data;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+/**
+ * @author Christine
+ *
+ */
+public class TestLibrary {
+	static Scanner input = new Scanner (System.in);
+	static int tableSelection;
+	/**
+	 * @param args
+	 * @throws Exception 
+	 */
+	public static void main(String[] args) throws Exception {
+
+		selectTable();
+//			Book
+//Books book = new Books();
+//book.displayBookData();
+//book.searchData(2, "a");
+	 
+	}   
+	
+	
+	public static void selectTable () {
+		int tableSelection =0;
+		boolean validInput = false;
+		do {
+			System.out.println("1. Books\n2. Branch\n3. Library\n4. Quit");
+			System.out.print("Please enter 1, 2 or 3 to select a table or 4 to quit: ");	
+			
+			try {
+				tableSelection = input.nextInt();
+
+				switch (tableSelection) {
+				  case 1:  selectBook() ; break;
+				  case 2:  selectBranch () ; break;
+				  case 3:  selectLibrary () ; break;
+				  case 4: System.out.println("Have a good day!"); break;
+				  default: throw new IllegalArgumentException ("Invalid input. A valid input is between 1 and 4\n");
+				}
+		
+				validInput = true;
+				
+			}catch (IllegalArgumentException ex) {
+				System.out.println(ex.getMessage());
+			}catch (InputMismatchException exx) {
+				System.out.println("Invalid input. "
+						+ "Enter a number to select an option\n");
+				input.nextLine();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		} while (!validInput );
+	}
+	
+	
+	public static void selectBook () {
+		Books book = new Books();
+		
+		int menuSelected = book.selectFromBookMenu();
+		try {
+			switch (menuSelected) {
+			case 1:  
+				System.out.print("Please enter a code number: ");
+					int codeNumber = input.nextInt(); 
+					input.nextLine();
+				System.out.print("Please enter a title: ");
+					String title = input.nextLine();
+				System.out.print("Please enter a author: ");
+					String author = input.nextLine();
+				System.out.print("Please enter a price: ");
+					double price = input.nextDouble();
+					input.nextLine();
+				System.out.print("Please enter a type: ");
+					String type = input.nextLine();
+				System.out.print("Please enter a subject: ");
+					String subject = input.nextLine();
+					
+					
+				book.addData(codeNumber, title, author, price , type, subject); 
+				break;
+			case 2:  
+				System.out.print("Please enter a code number: ");
+					int codeNum = input.nextInt(); 
+				System.out.print("Please enter a price: ");
+					double updatePrice = input.nextDouble();
+				
+				book.updateData(codeNum, updatePrice);  
+				break;
+			case 3:  
+				System.out.print("Please enter a code number to delete a book: ");
+				int deleteBookCode = input.nextInt(); 
+				book.deleteData(deleteBookCode);  break;
+			case 4: 
+				
+				System.out.print("1. Search by author name/n2. Search by title");
+				System.out.print("Please enter an option");
+				try {
+					int searchOption = input.nextInt();
+					
+					System.out.print("Please enter something to search");
+					String search = input.nextLine();
+					book.searchData(searchOption, search);
+					
+	
+				}catch (IllegalArgumentException ex) {
+					System.out.println("Invalid input. A valid input is between 1 and 3\n");
+				}catch (InputMismatchException exx) {
+					System.out.println("Invalid input. "
+							+ "Enter a number 1 or 2 or 3 to selection an option\n");
+					input.nextLine();
+				}catch(Exception e ) {
+					e.printStackTrace();
+				}
+				break;
+			case 5: book.displayBookData(); break;
+			case 6: 
+
+			}		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void selectBranch ( ) {
+		Branch branch = new Branch();
+//		try {
+//			switch (menuSelected) {
+//			case 1:  
+//				System.out.print("Please enter a branch code number: ");
+//					int branchCode = input.nextInt(); 
+//				System.out.print("Please enter a branch name: ");
+//					String branchName = input.nextLine();
+//				System.out.print("Please enter an address: ");
+//					String address = input.nextLine();
+//				System.out.print("Please enter a postal code: ");
+//					String postalCode = input.nextLine();
+//			
+//					
+//					
+//				branch.addData(branchCode, branchName, address, postalCode); 
+//				break;
+//			case 2:  
+//				System.out.print("Please enter a branch code number: ");
+//					int codeNum = input.nextInt(); 
+//				System.out.print("Please enter a price: ");
+//					double updatePrice = input.nextDouble();
+//				
+//				book.updateData(codeNum, updatePrice);  
+//				break;
+//			case 3:  
+//				System.out.print("Please enter a code number to delete a book: ");
+//				int deleteBookCode = input.nextInt(); 
+//				book.deleteData(deleteBookCode);  break;
+//			case 5: 
+//				
+//				System.out.print("1. Search by author name/n2. Search by title");
+//				System.out.print("Please enter an option");
+//				try {
+//					int searchOption = input.nextInt();
+//					
+//					System.out.print("Please enter something to search");
+//					String search = input.nextLine();
+//					book.searchData(searchOption, search);
+//					
+//	
+//				}catch (IllegalArgumentException ex) {
+//					System.out.println("Invalid input. A valid input is between 1 and 3\n");
+//				}catch (InputMismatchException exx) {
+//					System.out.println("Invalid input. "
+//							+ "Enter a number 1 or 2 or 3 to selection an option\n");
+//					input.nextLine();
+//				}catch(Exception e ) {
+//					e.printStackTrace();
+//				}
+//
+//			}		
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	public static int selectFromMenu () {
+		int menuSelection =0;
+		boolean validInput = false;
+		do {
+			System.out.println("1. Add Data           \n2. Update Data"
+						   + "\n3. Delete Data        \n4. Calculate Fine Amount"
+						   + "\n5. Search             \n6. Quit");
+			System.out.print("Please choose an option");
+			try {
+				menuSelection = input.nextInt();
+				if (menuSelection !=1 && menuSelection !=2 && menuSelection != 3
+						&& menuSelection != 4 && menuSelection != 5 && menuSelection != 6) {
+					throw new IllegalArgumentException ("Invalid input. Please enter a valid input");
+				}else {
+					if(menuSelection == 4 && tableSelection != 3) {
+						throw new IllegalArgumentException ("Only Library table can select this option");
+					}
+					
+				}
+				
+				validInput = true;
+				
+			}catch (InputMismatchException exx) {
+				System.out.println("Invalid input. Please enter again");
+				input.nextLine();
+			}catch (IllegalArgumentException ex) {
+				System.out.println(ex.getMessage());
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		} while (!validInput);
+		
+		return menuSelection;
+	}
+	
+	public static void selectLibrary ( ) {
+	
+	}
+}

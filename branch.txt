@@ -1,0 +1,115 @@
+/**
+ * 
+ */
+package data;
+
+import java.sql.*;
+import data.ConnectionLibrary;
+
+/**
+ * @author Christine
+ *
+ */
+public class Branch {
+
+	Connection con = null;
+	PreparedStatement pst;
+
+	
+	public void addData(int branchCode, String name, String address, String postalCode)throws Exception {
+
+        String addQuery = "INSERT INTO BRANCH (BRANCHCODE, BRANCHNAME, ADDRESS, POSTALCODE) VALUES(?,?,?,?,?)";
+        try{
+           con = ConnectionLibrary.getConnection();
+	       pst = con.prepareStatement(addQuery);
+               
+            pst.setInt(1,branchCode);
+        	pst.setString(2,name);
+        	pst.setString(3,address);;
+        	pst.setString(4, postalCode);
+
+            pst.executeUpdate();
+            
+                }catch(Exception e){
+                        e.printStackTrace();
+                }finally{	
+                        ConnectionLibrary.closeConnection(con,pst,null);
+                }
+        }
+	
+	public void updateData (int branchCode, String address) throws Exception {
+		String updateQuery = "Update BRANCH set address = '?' where BRANCHCODE = ?";
+		
+		try {
+			con = ConnectionLibrary.getConnection();
+				pst = con.prepareStatement(updateQuery);
+				
+				pst.setString(1, address);
+				pst.setInt(2, branchCode); 
+			
+            pst.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionLibrary.closeConnection(con, pst, null);
+		}
+	}
+	
+	public void deleteData (int branchCode) throws Exception {
+		String deleteQuery = "DELETE from BRANCH Where BRANCHCODE=?;";
+		
+		try {
+			con = ConnectionLibrary.getConnection();
+			pst = con.prepareStatement(deleteQuery);
+			
+			pst.setInt(1, branchCode);
+				
+			pst.executeUpdate();
+				
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionLibrary.closeConnection(con, pst, null);
+		}
+	}
+	
+	public void searchByBranchName (String branchName) throws Exception {
+		String searchQuery = "SELECT * from BRANCH where BRANCHNAME LIKE '%?%'";
+		
+		try {
+			con = ConnectionLibrary.getConnection();
+			pst = con.prepareStatement(searchQuery);
+				
+			pst.setString(1, branchName);
+				
+			pst.executeUpdate();
+				
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionLibrary.closeConnection(con, pst, null);
+		}
+	}
+	
+	public void searchByPostalCode (String postalCode) throws Exception {
+		String searchQuery = "SELECT * from BRANCH where POSTALCODE LIKE '%?%'";
+		
+		try {
+			con = ConnectionLibrary.getConnection();
+			pst = con.prepareStatement(searchQuery);
+				
+			pst.setString(1, postalCode);
+				
+			pst.executeUpdate();
+				
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionLibrary.closeConnection(con, pst, null);
+		}
+	}
+	
+	
+}
+
